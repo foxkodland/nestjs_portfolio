@@ -35,6 +35,14 @@ type Project {
   profile: Profile!
 }
 
+type Skill {
+  """id"""
+  id: Float!
+
+  """name"""
+  name: String!
+}
+
 type Profile {
   """id"""
   id: Float!
@@ -50,14 +58,9 @@ type Profile {
 
   """Проекты"""
   projects: [Project]
-}
 
-type Skill {
-  """id"""
-  id: Float!
-
-  """name"""
-  name: String!
+  """Навыки"""
+  skills: [Skill]
 }
 
 type ProfileSkill {

@@ -1,5 +1,6 @@
 import { CreateSkillInput } from "@/modules/skill/dto/create-skill.input";
 import { schema } from "../../prisma/db";
+import { Skill } from "@/modules/skill/entities/skill.entity";
 
 
 export const skillRepository = {
@@ -7,8 +8,16 @@ export const skillRepository = {
     return await schema.Skill.where({ id }).first()
   },
 
-  async findMany() {
+  async findAll() {
     return await schema.Skill.orderBy(p => p.createdAt.desc()).all()
+  },
+
+  async findByProfileId(profileId: number) {
+    const connections = await schema.ProfilesSkills
+      .where((x) => x.profileId.eq(profileId))
+      .include("skill")
+      .all();
+    return connections.map((conn) => conn.skill) as unknown as Skill[];
   },
 
   async create(data: CreateSkillInput) {
@@ -16,10 +25,10 @@ export const skillRepository = {
   },
 
   async update(id: number, data: Partial<CreateSkillInput>) {
-    return await schema.Skill.where({id}).update(data)
+    return await schema.Skill.where({ id }).update(data)
   },
 
   async delete(id: number) {
-    return await schema.Skill.where({id}).delete()
+    return await schema.Skill.where({ id }).delete()
   },
 };

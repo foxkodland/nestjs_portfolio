@@ -11,7 +11,7 @@ export class ExperienceService {
   }
 
   async findAll() {
-    return await experienceRepository.findMany()
+    return await experienceRepository.findAll()
   }
 
   async findOne(id: number) {

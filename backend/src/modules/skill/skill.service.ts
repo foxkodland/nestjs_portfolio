@@ -11,7 +11,7 @@ export class SkillService {
   }
 
   async findAll() {
-    return await skillRepository.findMany()
+    return await skillRepository.findAll()
   }
 
   async findOne(id: number) {

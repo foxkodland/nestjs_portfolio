@@ -13,6 +13,15 @@ export class SeedService implements OnApplicationBootstrap {
   }
 
   private async seedData() {
+
+    // для тестов очищение БД
+    // await this.schema.Experience.where((x) => x.id.gt(0)).deleteAll()
+    // await this.schema.Skill.where((x) => x.id.gt(0)).deleteAll()
+    // await this.schema.Project.where((x) => x.id.gt(0)).deleteAll()
+    // await this.schema.Profile.where((x) => x.id.gt(0)).deleteAll()
+    // await this.schema.ProfilesSkills.where((x) => x.profileId.gt(0)).deleteAll()
+    // console.log("БД очищена")
+    
     // Простая проверка, что база пуста по наличию одного профиля
     const { total } = await this.schema.Profile.aggregate((a) => ({ total: a.count() }));
     if (total > 0) {

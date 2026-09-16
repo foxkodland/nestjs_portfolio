@@ -8,7 +8,11 @@ export const projectRepository = {
     return await schema.Project.where({ id }).first()
   },
 
-  async findMany() {
+  async findManyByProfileId(id: number) {
+    return await schema.Project.where((x) => x.profile_id.eq(id)).orderBy(p => p.createdAt.desc()).all()
+  },
+
+  async findAll() {
     return await schema.Project.orderBy(p => p.createdAt.desc()).all()
   },
 

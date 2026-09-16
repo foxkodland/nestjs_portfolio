@@ -1,6 +1,7 @@
 import { ObjectType, Field } from '@nestjs/graphql';
 import { Experience } from '@/modules/experience/entities/experience.entity';
 import { Project } from '@/modules/project/entities/project.entity';
+import { Skill } from '@/modules/skill/entities/skill.entity';
 
 
 @ObjectType()
@@ -19,4 +20,7 @@ export class Profile {
 
   @Field(() => [Project], { nullable: 'itemsAndList', description: 'Проекты' })
   projects?: Project[];
+
+  @Field(() => [Skill], { nullable: 'itemsAndList', description: 'Навыки' })
+  skills?: Skill[];
 }

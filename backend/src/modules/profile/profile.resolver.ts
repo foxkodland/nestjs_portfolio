@@ -1,8 +1,14 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Int, ResolveField, Root, Parent } from '@nestjs/graphql';
 import { ProfileService } from './profile.service.js';
 import { Profile } from './entities/profile.entity.js';
 import { CreateProfileInput } from './dto/create-profile.input.js';
 import { UpdateProfileInput } from './dto/update-profile.input.js';
+import { Project } from '../project/entities/project.entity.js';
+import { projectRepository } from '@/database/repository/project.repository';
+import { Experience } from '../experience/entities/experience.entity.js';
+import { experienceRepository } from '@/database/repository/experience.repository';
+import { Skill } from '../skill/entities/skill.entity.js';
+import { skillRepository } from '@/database/repository/skill.repository';
 
 
 @Resolver(() => Profile)
@@ -32,5 +38,20 @@ export class ProfileResolver {
   @Mutation(() => Profile)
   async removeProfile(@Args('id', { type: () => Int }) id: number) {
     return await this.profileService.remove(id);
+  }
+
+  @ResolveField(() => [Project], { name: 'projects' })
+  async getProjects(@Parent() profile: Profile) {
+    return await projectRepository.findManyByProfileId(profile.id) 
+  }
+
+  @ResolveField(() => [Experience], { name: 'experiences' })
+  async getExperiences(@Parent() profile: Profile) {
+    return await experienceRepository.findManyByProfileId(profile.id) 
+  }
+
+  @ResolveField(() => [Skill], { name: 'skills' })
+  async getSkills(@Parent() profile: Profile) {
+    return await skillRepository.findByProfileId(profile.id) 
   }
 }

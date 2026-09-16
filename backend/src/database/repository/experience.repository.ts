@@ -8,7 +8,11 @@ export const experienceRepository = {
     return await schema.Experience.where({ id }).first()
   },
 
-  async findMany() {
+  async findManyByProfileId(id: number) {
+    return await schema.Experience.where((x) => x.profile_id.eq(id)).orderBy(p => p.createdAt.desc()).all()
+  },
+
+  async findAll() {
     return await schema.Experience.orderBy(p => p.createdAt.desc()).all()
   },
 
