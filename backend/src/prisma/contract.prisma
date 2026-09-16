@@ -1,0 +1,18 @@
+// use prisma-8
+
+model Profile {
+  id        Int      @id @default(autoincrement())
+  name     String   
+  description  String
+
+  createdAt TimestamptzString @default(now())
+  updatedAt temporal.updatedAtString()
+}
+
+
+model Skills {
+  id        Int      @id @default(autoincrement())
+  name      String
+
+  createdAt TimestamptzString @default(now())
+}
