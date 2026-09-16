@@ -6,8 +6,8 @@ import { skillRepository } from '@/database/repository/skill.repository.js';
 
 @Injectable()
 export class SkillService {
-  async create(profile: CreateSkillInput) {
-    return await skillRepository.create(profile)
+  async create(data: CreateSkillInput) {
+    return await skillRepository.create(data)
   }
 
   async findAll() {
