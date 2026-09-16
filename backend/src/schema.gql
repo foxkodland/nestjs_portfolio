@@ -67,8 +67,11 @@ type Profile {
 }
 
 type ProfileSkill {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """FK - profile"""
+  profileId: Int!
+
+  """FK - skill"""
+  skillId: Int!
 }
 
 type Query {
@@ -80,7 +83,16 @@ type Query {
   experience(id: Int!): Experience!
   projects: [Project!]!
   project(id: Int!): Project!
-  profileSkill(id: Int!): ProfileSkill!
+  profileSkills: [ProfileSkill!]!
+  profileSkill(profileSkillInput: ProfileSkillInput!): ProfileSkill!
+}
+
+input ProfileSkillInput {
+  """FK - profile"""
+  profileId: Float!
+
+  """FK - skill"""
+  skillId: Float!
 }
 
 type Mutation {
@@ -96,9 +108,8 @@ type Mutation {
   createProject(createProjectInput: CreateProjectInput!): Project!
   updateProject(updateProjectInput: UpdateProjectInput!): Project!
   removeProject(id: Int!): Project!
-  createProfileSkill(createProfileSkillInput: CreateProfileSkillInput!): ProfileSkill!
-  updateProfileSkill(updateProfileSkillInput: UpdateProfileSkillInput!): ProfileSkill!
-  removeProfileSkill(id: Int!): ProfileSkill!
+  createProfileSkill(profileSkillInput: ProfileSkillInput!): ProfileSkill!
+  removeProfileSkill(profileSkillInput: ProfileSkillInput!): ProfileSkill!
 }
 
 input CreateProfileInput {
@@ -178,16 +189,5 @@ input UpdateProjectInput {
 
   """description"""
   profile_id: Float
-  id: Int!
-}
-
-input CreateProfileSkillInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
-}
-
-input UpdateProfileSkillInput {
-  """Example field (placeholder)"""
-  exampleField: Int
   id: Int!
 }
