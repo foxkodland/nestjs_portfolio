@@ -9,6 +9,7 @@ import { SkillModule } from './modules/skill/skill.module.js';
 import { ExperienceModule } from './modules/experience/experience.module.js';
 import { ProjectModule } from './modules/project/project.module.js';
 import { ProfileSkillModule } from './modules/profile-skill/profile-skill.module.js';
+import { SeedService } from './database/seed/seed.service.js';
 
 
 @Module({
@@ -25,6 +26,6 @@ import { ProfileSkillModule } from './modules/profile-skill/profile-skill.module
     ProfileSkillModule
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, SeedService],
 })
 export class AppModule { }
