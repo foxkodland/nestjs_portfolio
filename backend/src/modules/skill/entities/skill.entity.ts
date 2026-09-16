@@ -1,3 +1,4 @@
+import { Profile } from '@/modules/profile/entities/profile.entity';
 import { ObjectType, Field } from '@nestjs/graphql';
 
 @ObjectType()
@@ -7,4 +8,7 @@ export class Skill {
 
   @Field(() => String, { description: 'name' })
   name!: string;
+
+  @Field(() => [Profile], { nullable: 'itemsAndList', description: 'Профили' })
+  profiles?: Profile[];
 }
