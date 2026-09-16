@@ -1,26 +1,28 @@
 import { Injectable } from '@nestjs/common';
 import { CreateProfileInput } from './dto/create-profile.input.js';
 import { UpdateProfileInput } from './dto/update-profile.input.js';
+import { profileRepository } from '@/database/repository/profile.repository';
+
 
 @Injectable()
 export class ProfileService {
-  create(createProfileInput: CreateProfileInput) {
-    return 'This action adds a new profile';
+  async create(profile: CreateProfileInput) {
+    return await profileRepository.create(profile)
   }
 
-  findAll() {
-    return `This action returns all profile`;
+  async findAll() {
+    return await profileRepository.findMany()
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} profile`;
+  async findOne(id: number) {
+    return await profileRepository.findById(id)
   }
 
-  update(id: number, updateProfileInput: UpdateProfileInput) {
-    return `This action updates a #${id} profile`;
+  async update(id: number, data: UpdateProfileInput) {
+    return await profileRepository.update(id, data)
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} profile`;
+  async remove(id: number) {
+    return await profileRepository.delete(id)
   }
 }

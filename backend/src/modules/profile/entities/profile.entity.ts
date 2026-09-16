@@ -8,6 +8,6 @@ export class Profile {
   @Field(() => String, { description: 'name' })
   name!: string;
 
-  @Field(() => String, { description: 'name' })
+  @Field(() => String, { description: 'description' })
   description!: string;
 }

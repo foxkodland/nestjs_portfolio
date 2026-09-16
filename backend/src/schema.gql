@@ -9,11 +9,12 @@ type Profile {
   """name"""
   name: String!
 
-  """name"""
+  """description"""
   description: String!
 }
 
 type Query {
+  profiles: [Profile!]!
   profile(id: Int!): Profile!
 }
 
