@@ -12,6 +12,10 @@
       "model": "Profile",
       "namespace": "public"
     },
+    "profilesSkills": {
+      "model": "ProfilesSkills",
+      "namespace": "public"
+    },
     "project": {
       "model": "Project",
       "namespace": "public"
@@ -203,6 +207,80 @@
               },
               "namespaceId": "public",
               "table": "profile"
+            }
+          },
+          "ProfilesSkills": {
+            "fields": {
+              "createdAt": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "kind": "scalar"
+                }
+              },
+              "profileId": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int4@1",
+                  "kind": "scalar"
+                }
+              },
+              "skillId": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int4@1",
+                  "kind": "scalar"
+                }
+              }
+            },
+            "relations": {
+              "profile": {
+                "cardinality": "N:1",
+                "nullable": false,
+                "on": {
+                  "localFields": [
+                    "profileId"
+                  ],
+                  "targetFields": [
+                    "id"
+                  ]
+                },
+                "to": {
+                  "model": "Profile",
+                  "namespace": "public"
+                }
+              },
+              "skill": {
+                "cardinality": "N:1",
+                "nullable": false,
+                "on": {
+                  "localFields": [
+                    "skillId"
+                  ],
+                  "targetFields": [
+                    "id"
+                  ]
+                },
+                "to": {
+                  "model": "Skill",
+                  "namespace": "public"
+                }
+              }
+            },
+            "storage": {
+              "fields": {
+                "createdAt": {
+                  "column": "createdAt"
+                },
+                "profileId": {
+                  "column": "profileId"
+                },
+                "skillId": {
+                  "column": "skillId"
+                }
+              },
+              "namespaceId": "public",
+              "table": "profilesSkills"
             }
           },
           "Project": {
@@ -454,6 +532,90 @@
               },
               "uniques": []
             },
+            "profilesSkills": {
+              "columns": {
+                "createdAt": {
+                  "codecId": "pg/timestamptz-temporal@1",
+                  "default": {
+                    "expression": "now()",
+                    "kind": "function"
+                  },
+                  "nativeType": "timestamptz",
+                  "nullable": false
+                },
+                "profileId": {
+                  "codecId": "pg/int4@1",
+                  "nativeType": "int4",
+                  "nullable": false
+                },
+                "skillId": {
+                  "codecId": "pg/int4@1",
+                  "nativeType": "int4",
+                  "nullable": false
+                }
+              },
+              "foreignKeys": [
+                {
+                  "onDelete": "cascade",
+                  "source": {
+                    "columns": [
+                      "profileId"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "profilesSkills"
+                  },
+                  "target": {
+                    "columns": [
+                      "id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "profile"
+                  }
+                },
+                {
+                  "onDelete": "cascade",
+                  "source": {
+                    "columns": [
+                      "skillId"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "profilesSkills"
+                  },
+                  "target": {
+                    "columns": [
+                      "id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "skill"
+                  }
+                }
+              ],
+              "indexes": [
+                {
+                  "columns": [
+                    "profileId"
+                  ],
+                  "name": "profilesSkills_profileId_idx_d9cdfcaf",
+                  "prefix": "profilesSkills_profileId_idx",
+                  "unique": false
+                },
+                {
+                  "columns": [
+                    "skillId"
+                  ],
+                  "name": "profilesSkills_skillId_idx_6e19993d",
+                  "prefix": "profilesSkills_skillId_idx",
+                  "unique": false
+                }
+              ],
+              "primaryKey": {
+                "columns": [
+                  "profileId",
+                  "skillId"
+                ]
+              },
+              "uniques": []
+            },
             "project": {
               "columns": {
                 "createdAt": {
@@ -566,7 +728,7 @@
         "kind": "postgres-schema"
       }
     },
-    "storageHash": "7d9dbc4c5c7cf462610850b60353edcaf3c19b7c95abb881eeb2b38eaade2028"
+    "storageHash": "ee448ff140c114cb6d32ef6914f4e4a7f8f74aa3a0ff806c129120d30b00964b"
   },
   "execution": {
     "executionHash": "7f3e0c690fca384c5e99e0eee1cbaa204cce06d3968924b105c212089d7ce0d0",

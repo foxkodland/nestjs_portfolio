@@ -42,3 +42,17 @@ model Project {
 
   createdAt TimestamptzString @default(now())
 }
+
+// Соединительная таблица для Profile и Skill
+model ProfilesSkills {
+  profileId     Int
+  skillId       Int
+  
+  // Обязательные связи для Prisma
+  profile       Profile     @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  skill   Skill @relation(fields: [skillId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@id([profileId, skillId]) // Составной первичный ключ
+}

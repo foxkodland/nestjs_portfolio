@@ -8,6 +8,7 @@ import { ProfileModule } from './modules/profile/profile.module.js';
 import { SkillModule } from './modules/skill/skill.module.js';
 import { ExperienceModule } from './modules/experience/experience.module.js';
 import { ProjectModule } from './modules/project/project.module.js';
+import { ProfileSkillModule } from './modules/profile-skill/profile-skill.module.js';
 
 
 @Module({
@@ -20,7 +21,8 @@ import { ProjectModule } from './modules/project/project.module.js';
     ProfileModule,
     SkillModule,
     ExperienceModule,
-    ProjectModule
+    ProjectModule,
+    ProfileSkillModule
   ],
   controllers: [AppController],
   providers: [AppService],
