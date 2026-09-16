@@ -1,5 +1,5 @@
 import { InputType, Field } from '@nestjs/graphql';
-import { IsString, IsNotEmpty, MinLength, MaxLength } from 'class-validator';
+import { IsString, IsNotEmpty, MinLength, MaxLength, IsNumber } from 'class-validator';
 
 
 @InputType()
@@ -16,4 +16,9 @@ export class CreateProjectInput {
   @IsNotEmpty({ message: 'Имя не может быть пустым' })
   @MaxLength(3000, { message: 'Описание слишком длинное' })
   description: string;
+
+  @Field(() => Number, { description: 'description' })
+  @IsNumber({}, { message: 'profile_id должен быть числом' })
+  @IsNotEmpty({ message: 'Поле не может быть пустым' })
+  profile_id!: number;
 }

@@ -164,6 +164,9 @@ input CreateProjectInput {
 
   """description"""
   description: String!
+
+  """description"""
+  profile_id: Float!
 }
 
 input UpdateProjectInput {
@@ -172,6 +175,9 @@ input UpdateProjectInput {
 
   """description"""
   description: String
+
+  """description"""
+  profile_id: Float
   id: Int!
 }
 

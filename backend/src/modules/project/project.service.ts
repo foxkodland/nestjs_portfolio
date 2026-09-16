@@ -1,26 +1,28 @@
 import { Injectable } from '@nestjs/common';
 import { CreateProjectInput } from './dto/create-project.input';
 import { UpdateProjectInput } from './dto/update-project.input';
+import { projectRepository } from '@/database/repository/project.repository';
+
 
 @Injectable()
 export class ProjectService {
-  create(createProjectInput: CreateProjectInput) {
-    return 'This action adds a new project';
+  async create(data: CreateProjectInput) {
+    return await projectRepository.create(data)
   }
 
-  findAll() {
-    return `This action returns all project`;
+  async findAll() {
+    return await projectRepository.findAll()
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} project`;
+  async findOne(id: number) {
+    return await projectRepository.findById(id)
   }
 
-  update(id: number, updateProjectInput: UpdateProjectInput) {
-    return `This action updates a #${id} project`;
+  async update(id: number, data: UpdateProjectInput) {
+    return await projectRepository.update(id, data)
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} project`;
+  async remove(id: number) {
+    return await projectRepository.delete(id)
   }
 }

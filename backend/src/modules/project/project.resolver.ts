@@ -1,8 +1,10 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Int, ResolveField, Parent } from '@nestjs/graphql';
 import { ProjectService } from './project.service';
 import { Project } from './entities/project.entity';
 import { CreateProjectInput } from './dto/create-project.input';
 import { UpdateProjectInput } from './dto/update-project.input';
+import { Profile } from '../profile/entities/profile.entity';
+import { profileRepository } from '@/database/repository/profile.repository';
 
 
 @Resolver(() => Project)
@@ -32,5 +34,10 @@ export class ProjectResolver {
   @Mutation(() => Project)
   async removeProject(@Args('id', { type: () => Int }) id: number) {
     return await this.projectService.remove(id);
+  }
+
+  @ResolveField(() => Profile, { name: 'profile' })
+  async getSkills(@Parent() project: Project) {
+    return await profileRepository.findById(project.profile_id) 
   }
 }
