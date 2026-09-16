@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
-import { ProfileModule } from './modules/profile/profile.module.js';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
+import { ProfileModule } from './modules/profile/profile.module.js';
+import { SkillModule } from './modules/skill/skill.module.js';
 
 
 @Module({
@@ -14,7 +15,8 @@ import { join } from 'path';
       playground: true,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
     }),
-    ProfileModule
+    ProfileModule,
+    SkillModule
   ],
   controllers: [AppController],
   providers: [AppService],

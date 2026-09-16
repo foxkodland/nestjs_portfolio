@@ -13,15 +13,28 @@ type Profile {
   description: String!
 }
 
+type Skill {
+  """id"""
+  id: Float!
+
+  """name"""
+  name: String!
+}
+
 type Query {
   profiles: [Profile!]!
   profile(id: Int!): Profile!
+  skills: [Skill!]!
+  skill(id: Int!): Skill!
 }
 
 type Mutation {
   createProfile(createProfileInput: CreateProfileInput!): Profile!
   updateProfile(updateProfileInput: UpdateProfileInput!): Profile!
   removeProfile(id: Int!): Profile!
+  createSkill(createSkillInput: CreateSkillInput!): Skill!
+  updateSkill(updateSkillInput: UpdateSkillInput!): Skill!
+  removeSkill(id: Int!): Skill!
 }
 
 input CreateProfileInput {
@@ -38,5 +51,16 @@ input UpdateProfileInput {
 
   """description"""
   description: String
+  id: Int!
+}
+
+input CreateSkillInput {
+  """name skill"""
+  name: String!
+}
+
+input UpdateSkillInput {
+  """name skill"""
+  name: String
   id: Int!
 }
