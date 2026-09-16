@@ -4,7 +4,7 @@ WORKDIR /app
 
 # Зависимости
 COPY package*.json ./
-RUN npm install
+RUN npm install --no-audit --progress=false
 
 # Весь проект
 COPY . .
@@ -22,7 +22,7 @@ COPY --from=builder /app/dist ./dist
 
 # для миграций
 COPY --from=builder /app/src/prisma ./src/prisma
-COPY --from=builder /app/src/prisma*.config.ts ./
+COPY --from=builder /app/prisma*.config.ts ./
 
 # Порт
 EXPOSE 3000
