@@ -6,6 +6,7 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
 import { ProfileModule } from './modules/profile/profile.module.js';
 import { SkillModule } from './modules/skill/skill.module.js';
+import { ExperienceModule } from './modules/experience/experience.module.js';
 
 
 @Module({
@@ -16,7 +17,8 @@ import { SkillModule } from './modules/skill/skill.module.js';
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
     }),
     ProfileModule,
-    SkillModule
+    SkillModule,
+    ExperienceModule
   ],
   controllers: [AppController],
   providers: [AppService],
