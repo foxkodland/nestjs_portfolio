@@ -17,6 +17,7 @@ import { SeedService } from './database/seed/seed.service.js';
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       playground: true,
+      introspection: true,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
     }),
     ProfileModule,
