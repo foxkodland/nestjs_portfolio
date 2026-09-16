@@ -1,0 +1,60 @@
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:17-alpine
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    # ports:
+    #     - 5432:5432
+    healthcheck:
+        test: [ "CMD-SHELL", "pg_isready -U postgres -d postgres" ]
+        interval: 10s
+        timeout: 5s
+        retries: 5
+        start_period: 10s
+        start_interval: 2s
+    restart: unless-stopped
+    deploy:
+        resources:
+            limits:
+                cpus: '1'
+                memory: 4G
+
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4:latest
+    restart: always
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_PASSWORD}
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+
+  backend:
+    container_name: backend
+    build:
+      context: ./backend 
+      dockerfile: Dockerfile
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=${NODE_ENV}
+      - DATABASE_URL=${DATABASE_URL}
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+
+volumes:
+  pgdata:
+  pgadmin_data:
