@@ -10,7 +10,7 @@ model Profile {
 }
 
 
-model Skills {
+model Skill {
   id        Int      @id @default(autoincrement())
   name      String
 

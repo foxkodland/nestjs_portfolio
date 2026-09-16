@@ -4,6 +4,7 @@ import { Profile } from './entities/profile.entity.js';
 import { CreateProfileInput } from './dto/create-profile.input.js';
 import { UpdateProfileInput } from './dto/update-profile.input.js';
 
+
 @Resolver(() => Profile)
 export class ProfileResolver {
   constructor(private readonly profileService: ProfileService) {}

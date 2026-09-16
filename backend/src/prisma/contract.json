@@ -8,8 +8,8 @@
       "model": "Profile",
       "namespace": "public"
     },
-    "skills": {
-      "model": "Skills",
+    "skill": {
+      "model": "Skill",
       "namespace": "public"
     }
   },
@@ -78,7 +78,7 @@
               "table": "profile"
             }
           },
-          "Skills": {
+          "Skill": {
             "fields": {
               "createdAt": {
                 "nullable": false,
@@ -116,7 +116,7 @@
                 }
               },
               "namespaceId": "public",
-              "table": "skills"
+              "table": "skill"
             }
           }
         }
@@ -173,7 +173,7 @@
               },
               "uniques": []
             },
-            "skills": {
+            "skill": {
               "columns": {
                 "createdAt": {
                   "codecId": "pg/timestamptz-string@1",
@@ -214,7 +214,7 @@
         "kind": "postgres-schema"
       }
     },
-    "storageHash": "590e13c95d23bd5fda52941cd32e8cef93ce29b2be14b4ab5af35d5178d96157"
+    "storageHash": "b157772d747b649d1acd5d3304552028f340ba23e76baad5ab652678c708b801"
   },
   "execution": {
     "executionHash": "7f3e0c690fca384c5e99e0eee1cbaa204cce06d3968924b105c212089d7ce0d0",
