@@ -1,6 +1,6 @@
 import { CreateExperienceInput } from "@/modules/experience/dto/create-experience.input";
 import { schema } from "../../prisma/db";
-import { CreateProfileInput } from "@/modules/profile/dto/create-profile.input";
+import { UpdateExperienceInput } from "@/modules/experience/dto/update-experience.input";
 
 
 export const experienceRepository = {
@@ -12,11 +12,11 @@ export const experienceRepository = {
     return await schema.Experience.orderBy(p => p.createdAt.desc()).all()
   },
 
-  async create(data: CreateProfileInput) {
+  async create(data: CreateExperienceInput) {
     return await schema.Experience.create(data)
   },
 
-  async update(id: number, data: Partial<CreateExperienceInput>) {
+  async update(id: number, data: Partial<UpdateExperienceInput>) {
     return await schema.Experience.where({id}).update(data)
   },
 

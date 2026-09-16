@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateExperienceInput } from './dto/create-experience.input.js';
 import { UpdateExperienceInput } from './dto/update-experience.input.js';
-import { experienceRepository } from '@/database/repository/experience.repository.js';
+import { experienceRepository } from '@/database/repository/experience.repository';
 
 
 @Injectable()

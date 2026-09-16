@@ -5,6 +5,8 @@ model Profile {
   name     String   
   description  String
 
+  experiences     Experience[]
+
   createdAt TimestamptzString @default(now())
   updatedAt temporal.updatedAtString()
 }
@@ -13,6 +15,18 @@ model Profile {
 model Skill {
   id        Int      @id @default(autoincrement())
   name      String
+
+  createdAt TimestamptzString @default(now())
+}
+
+model Experience {
+  id        Int      @id @default(autoincrement())
+  company      String
+  position      String
+  description      String
+  profile_id     Int 
+
+  profile  Profile  @relation(fields: [profile_id], references: [id])
 
   createdAt TimestamptzString @default(now())
 }

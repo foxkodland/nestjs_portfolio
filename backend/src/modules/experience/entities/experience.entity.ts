@@ -1,4 +1,6 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { ObjectType, Field } from '@nestjs/graphql';
+import { Profile } from '@/modules/profile/entities/profile.entity';
+
 
 @ObjectType()
 export class Experience {
@@ -13,4 +15,11 @@ export class Experience {
 
   @Field(() => String, { description: 'description' })
   description!: string;
+
+  @Field(() => Number, { description: 'FK для profile' })
+  profile_id!: number;
+
+  // виртуальное поле для FK
+  @Field(() => Profile)
+  profile!: Profile;
 }

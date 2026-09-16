@@ -4,6 +4,10 @@
   "target": "postgres",
   "profileHash": "3916f444a8a17ad749191acf9e08dad97d1a327b88c2f1d45d12f240296aa8b2",
   "roots": {
+    "experience": {
+      "model": "Experience",
+      "namespace": "public"
+    },
     "profile": {
       "model": "Profile",
       "namespace": "public"
@@ -17,6 +21,94 @@
     "namespaces": {
       "public": {
         "models": {
+          "Experience": {
+            "fields": {
+              "company": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
+              "createdAt": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/timestamptz-string@1",
+                  "kind": "scalar"
+                }
+              },
+              "description": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
+              "id": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int4@1",
+                  "kind": "scalar"
+                }
+              },
+              "position": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
+              "profile_id": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int4@1",
+                  "kind": "scalar"
+                }
+              }
+            },
+            "relations": {
+              "profile": {
+                "cardinality": "N:1",
+                "nullable": false,
+                "on": {
+                  "localFields": [
+                    "profile_id"
+                  ],
+                  "targetFields": [
+                    "id"
+                  ]
+                },
+                "to": {
+                  "model": "Profile",
+                  "namespace": "public"
+                }
+              }
+            },
+            "storage": {
+              "fields": {
+                "company": {
+                  "column": "company"
+                },
+                "createdAt": {
+                  "column": "createdAt"
+                },
+                "description": {
+                  "column": "description"
+                },
+                "id": {
+                  "column": "id"
+                },
+                "position": {
+                  "column": "position"
+                },
+                "profile_id": {
+                  "column": "profile_id"
+                }
+              },
+              "namespaceId": "public",
+              "table": "experience"
+            }
+          },
           "Profile": {
             "fields": {
               "createdAt": {
@@ -55,7 +147,23 @@
                 }
               }
             },
-            "relations": {},
+            "relations": {
+              "experiences": {
+                "cardinality": "1:N",
+                "on": {
+                  "localFields": [
+                    "id"
+                  ],
+                  "targetFields": [
+                    "profile_id"
+                  ]
+                },
+                "to": {
+                  "model": "Experience",
+                  "namespace": "public"
+                }
+              }
+            },
             "storage": {
               "fields": {
                 "createdAt": {
@@ -128,6 +236,82 @@
       "public": {
         "entries": {
           "table": {
+            "experience": {
+              "columns": {
+                "company": {
+                  "codecId": "pg/text@1",
+                  "nativeType": "text",
+                  "nullable": false
+                },
+                "createdAt": {
+                  "codecId": "pg/timestamptz-string@1",
+                  "default": {
+                    "expression": "now()",
+                    "kind": "function"
+                  },
+                  "nativeType": "timestamptz",
+                  "nullable": false
+                },
+                "description": {
+                  "codecId": "pg/text@1",
+                  "nativeType": "text",
+                  "nullable": false
+                },
+                "id": {
+                  "codecId": "pg/int4@1",
+                  "default": {
+                    "expression": "autoincrement()",
+                    "kind": "function"
+                  },
+                  "nativeType": "int4",
+                  "nullable": false
+                },
+                "position": {
+                  "codecId": "pg/text@1",
+                  "nativeType": "text",
+                  "nullable": false
+                },
+                "profile_id": {
+                  "codecId": "pg/int4@1",
+                  "nativeType": "int4",
+                  "nullable": false
+                }
+              },
+              "foreignKeys": [
+                {
+                  "source": {
+                    "columns": [
+                      "profile_id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "experience"
+                  },
+                  "target": {
+                    "columns": [
+                      "id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "profile"
+                  }
+                }
+              ],
+              "indexes": [
+                {
+                  "columns": [
+                    "profile_id"
+                  ],
+                  "name": "experience_profile_id_idx_ff36b76a",
+                  "prefix": "experience_profile_id_idx",
+                  "unique": false
+                }
+              ],
+              "primaryKey": {
+                "columns": [
+                  "id"
+                ]
+              },
+              "uniques": []
+            },
             "profile": {
               "columns": {
                 "createdAt": {
@@ -214,7 +398,7 @@
         "kind": "postgres-schema"
       }
     },
-    "storageHash": "b157772d747b649d1acd5d3304552028f340ba23e76baad5ab652678c708b801"
+    "storageHash": "c194e58d37ab29f0c3d30f2838df264d495658f806c5f81165646edded04d8a8"
   },
   "execution": {
     "executionHash": "7f3e0c690fca384c5e99e0eee1cbaa204cce06d3968924b105c212089d7ce0d0",

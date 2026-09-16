@@ -2,6 +2,24 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Experience {
+  """id"""
+  id: Float!
+
+  """name"""
+  company: String!
+
+  """position"""
+  position: String!
+
+  """description"""
+  description: String!
+
+  """FK для profile"""
+  profile_id: Float!
+  profile: Profile!
+}
+
 type Profile {
   """id"""
   id: Float!
@@ -11,6 +29,9 @@ type Profile {
 
   """description"""
   description: String!
+
+  """Опыт с предыдущих работ"""
+  experience: [Experience]
 }
 
 type Skill {
@@ -26,6 +47,8 @@ type Query {
   profile(id: Int!): Profile!
   skills: [Skill!]!
   skill(id: Int!): Skill!
+  experiences: [Experience!]!
+  experience(id: Int!): Experience!
 }
 
 type Mutation {
@@ -35,6 +58,9 @@ type Mutation {
   createSkill(createSkillInput: CreateSkillInput!): Skill!
   updateSkill(updateSkillInput: UpdateSkillInput!): Skill!
   removeSkill(id: Int!): Skill!
+  createExperience(createExperienceInput: CreateExperienceInput!): Experience!
+  updateExperience(updateExperienceInput: UpdateExperienceInput!): Experience!
+  removeExperience(id: Int!): Experience!
 }
 
 input CreateProfileInput {
@@ -62,5 +88,34 @@ input CreateSkillInput {
 input UpdateSkillInput {
   """name skill"""
   name: String
+  id: Int!
+}
+
+input CreateExperienceInput {
+  """name"""
+  company: String!
+
+  """position"""
+  position: String!
+
+  """description"""
+  description: String!
+
+  """FK для profile"""
+  profile_id: Float!
+}
+
+input UpdateExperienceInput {
+  """name"""
+  company: String
+
+  """position"""
+  position: String
+
+  """description"""
+  description: String
+
+  """FK для profile"""
+  profile_id: Float
   id: Int!
 }

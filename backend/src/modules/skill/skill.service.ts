@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateSkillInput } from './dto/create-skill.input.js';
 import { UpdateSkillInput } from './dto/update-skill.input.js';
-import { skillRepository } from '@/database/repository/skill.repository.js';
+import { skillRepository } from '@/database/repository/skill.repository';
 
 
 @Injectable()
