@@ -1,8 +1,11 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Int, ResolveField, Parent } from '@nestjs/graphql';
 import { ExperienceService } from './experience.service.js';
 import { Experience } from './entities/experience.entity.js';
 import { CreateExperienceInput } from './dto/create-experience.input.js';
 import { UpdateExperienceInput } from './dto/update-experience.input.js';
+import { Profile } from '../profile/entities/profile.entity';
+import { profileRepository } from '@/database/repository/profile.repository';
+
 
 @Resolver(() => Experience)
 export class ExperienceResolver {
@@ -31,5 +34,10 @@ export class ExperienceResolver {
   @Mutation(() => Experience)
   async removeExperience(@Args('id', { type: () => Int }) id: number) {
     return await this.experienceService.remove(id);
+  }
+
+  @ResolveField(() => Profile, { name: 'profile' })
+  async getSkills(@Parent() experience: Experience) {
+    return await profileRepository.findById(experience.profile_id) 
   }
 }
