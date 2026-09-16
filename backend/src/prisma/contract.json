@@ -12,6 +12,10 @@
       "model": "Profile",
       "namespace": "public"
     },
+    "project": {
+      "model": "Project",
+      "namespace": "public"
+    },
     "skill": {
       "model": "Skill",
       "namespace": "public"
@@ -162,6 +166,21 @@
                   "model": "Experience",
                   "namespace": "public"
                 }
+              },
+              "projects": {
+                "cardinality": "1:N",
+                "on": {
+                  "localFields": [
+                    "id"
+                  ],
+                  "targetFields": [
+                    "profile_id"
+                  ]
+                },
+                "to": {
+                  "model": "Project",
+                  "namespace": "public"
+                }
               }
             },
             "storage": {
@@ -184,6 +203,84 @@
               },
               "namespaceId": "public",
               "table": "profile"
+            }
+          },
+          "Project": {
+            "fields": {
+              "createdAt": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/timestamptz-string@1",
+                  "kind": "scalar"
+                }
+              },
+              "description": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
+              "id": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int4@1",
+                  "kind": "scalar"
+                }
+              },
+              "name": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
+              "profile_id": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int4@1",
+                  "kind": "scalar"
+                }
+              }
+            },
+            "relations": {
+              "profile": {
+                "cardinality": "N:1",
+                "nullable": false,
+                "on": {
+                  "localFields": [
+                    "profile_id"
+                  ],
+                  "targetFields": [
+                    "id"
+                  ]
+                },
+                "to": {
+                  "model": "Profile",
+                  "namespace": "public"
+                }
+              }
+            },
+            "storage": {
+              "fields": {
+                "createdAt": {
+                  "column": "createdAt"
+                },
+                "description": {
+                  "column": "description"
+                },
+                "id": {
+                  "column": "id"
+                },
+                "name": {
+                  "column": "name"
+                },
+                "profile_id": {
+                  "column": "profile_id"
+                }
+              },
+              "namespaceId": "public",
+              "table": "project"
             }
           },
           "Skill": {
@@ -357,6 +454,77 @@
               },
               "uniques": []
             },
+            "project": {
+              "columns": {
+                "createdAt": {
+                  "codecId": "pg/timestamptz-string@1",
+                  "default": {
+                    "expression": "now()",
+                    "kind": "function"
+                  },
+                  "nativeType": "timestamptz",
+                  "nullable": false
+                },
+                "description": {
+                  "codecId": "pg/text@1",
+                  "nativeType": "text",
+                  "nullable": false
+                },
+                "id": {
+                  "codecId": "pg/int4@1",
+                  "default": {
+                    "expression": "autoincrement()",
+                    "kind": "function"
+                  },
+                  "nativeType": "int4",
+                  "nullable": false
+                },
+                "name": {
+                  "codecId": "pg/text@1",
+                  "nativeType": "text",
+                  "nullable": false
+                },
+                "profile_id": {
+                  "codecId": "pg/int4@1",
+                  "nativeType": "int4",
+                  "nullable": false
+                }
+              },
+              "foreignKeys": [
+                {
+                  "source": {
+                    "columns": [
+                      "profile_id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "project"
+                  },
+                  "target": {
+                    "columns": [
+                      "id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "profile"
+                  }
+                }
+              ],
+              "indexes": [
+                {
+                  "columns": [
+                    "profile_id"
+                  ],
+                  "name": "project_profile_id_idx_ff36b76a",
+                  "prefix": "project_profile_id_idx",
+                  "unique": false
+                }
+              ],
+              "primaryKey": {
+                "columns": [
+                  "id"
+                ]
+              },
+              "uniques": []
+            },
             "skill": {
               "columns": {
                 "createdAt": {
@@ -398,7 +566,7 @@
         "kind": "postgres-schema"
       }
     },
-    "storageHash": "c194e58d37ab29f0c3d30f2838df264d495658f806c5f81165646edded04d8a8"
+    "storageHash": "7d9dbc4c5c7cf462610850b60353edcaf3c19b7c95abb881eeb2b38eaade2028"
   },
   "execution": {
     "executionHash": "7f3e0c690fca384c5e99e0eee1cbaa204cce06d3968924b105c212089d7ce0d0",

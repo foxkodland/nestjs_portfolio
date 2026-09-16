@@ -20,6 +20,21 @@ type Experience {
   profile: Profile!
 }
 
+type Project {
+  """id"""
+  id: Float!
+
+  """name"""
+  name: String!
+
+  """description"""
+  description: String!
+
+  """FK для profile"""
+  profile_id: Float!
+  profile: Profile!
+}
+
 type Profile {
   """id"""
   id: Float!
@@ -31,7 +46,10 @@ type Profile {
   description: String!
 
   """Опыт с предыдущих работ"""
-  experience: [Experience]
+  experiences: [Experience]
+
+  """Проекты"""
+  projects: [Project]
 }
 
 type Skill {
@@ -49,6 +67,8 @@ type Query {
   skill(id: Int!): Skill!
   experiences: [Experience!]!
   experience(id: Int!): Experience!
+  projects: [Project!]!
+  project(id: Int!): Project!
 }
 
 type Mutation {
@@ -61,6 +81,9 @@ type Mutation {
   createExperience(createExperienceInput: CreateExperienceInput!): Experience!
   updateExperience(updateExperienceInput: UpdateExperienceInput!): Experience!
   removeExperience(id: Int!): Experience!
+  createProject(createProjectInput: CreateProjectInput!): Project!
+  updateProject(updateProjectInput: UpdateProjectInput!): Project!
+  removeProject(id: Int!): Project!
 }
 
 input CreateProfileInput {
@@ -117,5 +140,22 @@ input UpdateExperienceInput {
 
   """FK для profile"""
   profile_id: Float
+  id: Int!
+}
+
+input CreateProjectInput {
+  """name"""
+  name: String!
+
+  """description"""
+  description: String!
+}
+
+input UpdateProjectInput {
+  """name"""
+  name: String
+
+  """description"""
+  description: String
   id: Int!
 }
