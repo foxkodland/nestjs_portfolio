@@ -1,0 +1,41 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Profile {
+  """id"""
+  id: Float!
+
+  """name"""
+  name: String!
+
+  """name"""
+  description: String!
+}
+
+type Query {
+  profile(id: Int!): Profile!
+}
+
+type Mutation {
+  createProfile(createProfileInput: CreateProfileInput!): Profile!
+  updateProfile(updateProfileInput: UpdateProfileInput!): Profile!
+  removeProfile(id: Int!): Profile!
+}
+
+input CreateProfileInput {
+  """name"""
+  name: String!
+
+  """description"""
+  description: String!
+}
+
+input UpdateProfileInput {
+  """name"""
+  name: String
+
+  """description"""
+  description: String
+  id: Int!
+}
